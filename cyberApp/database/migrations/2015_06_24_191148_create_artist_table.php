@@ -12,7 +12,12 @@ class CreateArtistTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('artist', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+            $table->timestamp('published_at');
+        });
     }
 
     /**
@@ -22,6 +27,6 @@ class CreateArtistTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('artist');
     }
 }

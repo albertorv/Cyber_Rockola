@@ -12,7 +12,14 @@ class CreateTrackTable extends Migration
      */
     public function up()
     {
-        //
+         Schema::create('track', function (Blueprint $table) {
+            $table->increments('id');
+            $table->id('id_artist');
+            $table->string('name')->unique();
+            $table->string('dir_track');
+            $table->timestamps();
+            $table->timestamp('published_at');
+        });
     }
 
     /**
@@ -22,6 +29,6 @@ class CreateTrackTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('track');
     }
 }
