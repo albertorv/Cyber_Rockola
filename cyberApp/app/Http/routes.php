@@ -24,13 +24,13 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('articles','ArticlesController@index');
+Route::get('artists','ArtistsController@index');
 
-Route::get('articles/create','ArticlesController@create');
+Route::get('artists/create','ArtistsController@create');
 
-Route::post('articles','ArticlesController@store');
+Route::post('artists','ArtistsController@store');
 
-Route::get('articles/{id}','ArticlesController@show');
+Route::get('artists/{id}','ArtistsController@show');
 
 /**Route::match(['get','post'],'articles/{id}/edit',
 	'uses' =>'ArticlesController@edit']);**/

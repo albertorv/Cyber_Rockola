@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="jumbotron">
-        <h1>ISW-811</h1>
-        <h2>Aplicaciones Web con SL</h2>
+        <h1>Cyber Rockola</h1>
+        <h2>Todo tipo de canción</h2>
         <br>
 
         @if (Auth::guest())
@@ -15,7 +15,7 @@
                    role="button">Registrarse</a>
             </p>
         @else
-            <p>Bienvenido {{ Auth::user()->name }}</p>
+            <p>Bienvenido {{ Auth::user()->username }}</p>
             <p>
                 <a class="btn btn-warning btn-lg" href="{{ url('/auth/logout') }}"
                    role="button">Cerrar sesión</a>

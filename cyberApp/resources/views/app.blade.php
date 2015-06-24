@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ISW811</title>
+    <title>Cyber Rockola</title>
 
     <!-- Styles -->
     {!! Html::style('/css/bootstrap.css') !!}
