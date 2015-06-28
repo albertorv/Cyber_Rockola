@@ -62,7 +62,7 @@ class ArtistsController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
