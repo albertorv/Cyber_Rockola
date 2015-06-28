@@ -39,7 +39,9 @@ class ArtistsController extends Controller
      */
     public function store()
     {
-        //
+        $artist = Request::all();
+        Artist::create($artist);
+        return redirect('artists.index');
     }
 
     /**
