@@ -64,7 +64,8 @@ class ArtistsController extends Controller
      */
     public function edit($id)
     {
-        
+        $artist = Artist::find($id);
+        return view('artists.edit',compact('artist'));
     }
 
     /**
@@ -75,7 +76,10 @@ class ArtistsController extends Controller
      */
     public function update($id)
     {
-        //
+           $artistUpdate=Request::all();
+           $artist=Book::find($id);
+           $artist->update($artistUpdate);
+           return redirect('artists');
     }
 
     /**
@@ -86,6 +90,7 @@ class ArtistsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Artist::find($id)->delete();
+        return redirect('artists');
     }
 }
