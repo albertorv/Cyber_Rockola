@@ -37,9 +37,12 @@ class TracksController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $track = new $Track();
+        $track = $request->request('track');
+
+        $track->save();
     }
 
     /**
@@ -50,7 +53,8 @@ class TracksController extends Controller
      */
     public function show($id)
     {
-        //
+        $track = Track::find($id);
+        return view('tracks.show',compact('track'));
     }
 
     /**
