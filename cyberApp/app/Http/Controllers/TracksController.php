@@ -20,6 +20,7 @@ class TracksController extends Controller
     {
         //Recuperar todos los articulos
         $tracks = Track::all();
+        $tracks = Track::paginate(15);
 
         return view('tracks.index',compact('tracks')); //compact hace un arreglo
     }
@@ -57,12 +58,6 @@ class TracksController extends Controller
         ];
 
         $this->validate($request,$rules);
-
-       /** $track = new $track();
-        $track = $request->request('nombre');
-
-        $track->save();**/
-
         Track::create($request->all());
         return redirect('tracks');
     }

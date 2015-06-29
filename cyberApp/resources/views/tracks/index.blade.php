@@ -1,8 +1,14 @@
 @extends('app')
 
+
+
 @section('content')
     <h1>Tracks</h1>
-
+    
+@if (Auth::user()->is_admin == '1')
+    <a class="btn btn-primary btn-lg" href="{{ url('tracks/create') }}"
+       role="button">Crear cancion</a>
+@endif
 
     <table class="ui celled table" id="tableIndex">
     <thead>
@@ -25,12 +31,7 @@
       </tbody>
 
     </table>
+{!! $tracks->render() !!}
 
-
-
-@if (Auth::user()->is_admin == '1')
-    <a class="btn btn-primary btn-lg" href="{{ url('tracks/create') }}"
-       role="button">Crear cancion</a>
-@endif
     
 @stop
