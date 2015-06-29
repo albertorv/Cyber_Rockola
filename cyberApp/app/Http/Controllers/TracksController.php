@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTrackRequest;
 use Carbon\Carbon;
+use Input;
 
 class TracksController extends Controller
 {
@@ -94,9 +95,10 @@ class TracksController extends Controller
      */
     public function update($id)
     {
-           $trackUpdate=Request::all();
+           $track_name = Input::get('name');
            $track=Track::find($id);
-           $track->update($trackUpdate);
+           $track->name = $track_name;
+           $track->save();
            return redirect('tracks');
     }
 

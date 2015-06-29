@@ -33,7 +33,9 @@ Route::post('artists','ArtistsController@store');
 Route::get('artists/{id}','ArtistsController@show');
 
 ///
+Route::resource('tracks', 'TracksController');
 
+/*
 Route::get('tracks','TracksController@index');
 
 Route::get('tracks/create','TracksController@create');
@@ -42,5 +44,8 @@ Route::post('tracks','TracksController@store');
 
 Route::get('tracks/{id}','TracksController@show');
 
+Route::match(['get', 'post'],'tracks/{id}/edit', [
+    'uses' =>'TracksController@edit']);
+*/
 /**Route::match(['get','post'],'articles/{id}/edit',
 	'uses' =>'ArticlesController@edit']);**/

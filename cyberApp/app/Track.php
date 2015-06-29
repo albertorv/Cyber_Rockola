@@ -13,17 +13,12 @@ class Track extends Model
      *
      * @var string
      */
-    protected $table = 'track';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'dir_track'
-    ];
+
+    protected $table = 'track';
+    protected $fillable = array('name','dir_track');
+    protected $guarded  = array('id');
+    public    $timestamps = false;
 
 
     /**
