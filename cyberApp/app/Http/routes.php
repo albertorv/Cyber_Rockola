@@ -32,5 +32,15 @@ Route::post('artists','ArtistsController@store');
 
 Route::get('artists/{id}','ArtistsController@show');
 
+///
+
+Route::get('tracks','TracksController@index');
+
+Route::get('tracks/create','TracksController@create');
+
+Route::post('tracks','TracksController@store');
+
+Route::get('tracks/{id}','TracksController@show');
+
 /**Route::match(['get','post'],'articles/{id}/edit',
 	'uses' =>'ArticlesController@edit']);**/

@@ -2,9 +2,9 @@
 
 @section('content')
         <article>
-            <h1>{{ $article->title }}</h1>
+            <h1>{{ $track->name }}</h1>
             <div class="body">
-                {{ $article->body }}
+                {{ $track->dir_track }}
             </div>
         </article>
 @stop

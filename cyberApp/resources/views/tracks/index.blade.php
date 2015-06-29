@@ -1,24 +1,36 @@
 @extends('app')
 
 @section('content')
-    <h1>Articles</h1>
+    <h1>Tracks</h1>
 
-    @foreach($articles as $article)
-        <article>
 
-            <a href="/articles/{{ $article->id  }}"><h2>{{ $article->title }}</h2></a>
-
-            {{--
-                <a href="{{ action('ArticlesController@show', [$article->id]) }}"><h2>{{ $article->title }}</h2></a>
-                <a href="{{ url('/articles', $article->id) }}"><h2>{{ $article->title }}</h2></a>
-            --}}
-
-            <div class="body">
-                {{ $article->body }}
-            </div>
-        </article>
+    <table class="ui celled table" id="tableIndex">
+    <thead>
+        <tr>
+            <th>Cancion</th>
+            <th>Dir Cancion</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach($tracks as $track)
+    <tr>
+        <td>{!! $track->name !!}</td>
+        <td>{!! $track->dir_track !!}</td>
+        <td><a href="{{url('tracks.edit')}}" id={{$track->id}} class="btn btn-warning">Editar</a>
+        </td>
+    </tr>
     @endforeach
 
-    <a class="btn btn-primary btn-lg" href="{{ url('articles/create') }}"
-       role="button">Crear articulo</a>
+      </tbody>
+
+    </table>
+
+
+
+@if (Auth::user()->is_admin == '1')
+    <a class="btn btn-primary btn-lg" href="{{ url('tracks/create') }}"
+       role="button">Crear cancion</a>
+@endif
+    
 @stop

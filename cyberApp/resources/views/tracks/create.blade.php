@@ -1,31 +1,26 @@
 @extends('app')
 
 @section('content')
-    <h1>Nueva Canción</h1>
+    <h1>Write a new cancion</h1>
     <hr>
 
-    {!! Form::open(['url' => 'articles']) !!}
-        <!-- Title Form Input -->
+    {!! Form::open(['url' => 'tracks']) !!}
+        <!-- track Form Input -->
         <div class="form-group">
-            {!! Form::label('title','Título: ')  !!}
-            {!! Form::text('title', null , ['class'=>'form-control'])  !!}
+            {!! Form::label('name','Cancion: ')  !!}
+            {!! Form::text('name', null , ['class'=>'form-control'])  !!}
         </div>
 
-        <!-- Body Form Input -->
+        <!-- dir_track Form Input -->
         <div class="form-group">
-            {!! Form::label('body','Contenido del Artículo: ')  !!}
-            {!! Form::textarea('body', null , ['class'=>'form-control'])  !!}
+            {!! Form::label('dir_track','directorio de cancion: ')  !!}
+            {!! Form::text('dir_track', null , ['class'=>'form-control'])  !!}
         </div>
 
-        <!-- Published_at Form Input -->
-        <div class="form-group">
-            {!! Form:: label('published_at','Publicado en: ')  !!}
-            {!! Form::input('date','published_at', date('Y-m-d'), ['class'=>'form-control'])  !!}
-        </div>
-
+    
         <!-- Submit -->
         <div class="form-group">
-            {!! Form::submit('Agregar Articulo', ['class'=>'btn btn-primary form-control'])  !!}
+            {!! Form::submit('Agregar Cancion', ['class'=>'btn btn-primary form-control'])  !!}
         </div>
     {!! Form::close() !!}
 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Track;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateTrackRequest;
+use Carbon\Carbon;
 
 class TracksController extends Controller
 {
@@ -16,8 +18,8 @@ class TracksController extends Controller
      */
     public function index()
     {
-       $track = Track::get()->all();
-        
+        //Recuperar todos los articulos
+        $tracks = Track::all();
 
         return view('tracks.index',compact('tracks')); //compact hace un arreglo
     }
@@ -29,6 +31,7 @@ class TracksController extends Controller
      */
     public function create()
     {
+        //
         return view('tracks.create');
     }
 
@@ -37,12 +40,31 @@ class TracksController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateTrackRequest $request)
     {
-        $track = new $Track();
-        $track = $request->request('track');
 
-        $track->save();
+        Track::create($request->all());
+        return redirect('tracks');
+    }
+
+    public function storeOld(Request $request)
+    {
+
+    $rules =
+        [
+            'name' => 'required|min:3',
+            'dir_track' => 'required'
+        ];
+
+        $this->validate($request,$rules);
+
+       /** $track = new $track();
+        $track = $request->request('nombre');
+
+        $track->save();**/
+
+        Track::create($request->all());
+        return redirect('tracks');
     }
 
     /**
@@ -65,7 +87,8 @@ class TracksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $track = Track::find($id);
+        return view('tracks.edit',compact('track'));
     }
 
     /**
@@ -76,7 +99,10 @@ class TracksController extends Controller
      */
     public function update($id)
     {
-        //
+           $trackUpdate=Request::all();
+           $track=Track::find($id);
+           $track->update($trackUpdate);
+           return redirect('tracks');
     }
 
     /**
@@ -87,6 +113,7 @@ class TracksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Track::find($id)->delete();
+        return redirect('tracks');
     }
 }
