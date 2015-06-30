@@ -35,8 +35,8 @@ class TracksController extends Controller
      */
     public function create()
     {
-        
-        return view('tracks.create');
+        $artists = Artist::get()->all();                
+        return view('tracks.create', compact('tracks','artists' ));
     }
 
     /**
@@ -48,13 +48,16 @@ class TracksController extends Controller
     {
 
         $track = Track::all();
-        $track = new Track();
-        
+        $track = new Track();  
 
+        $artist = Artist::all();
+        $artist = new Artist();
+
+        $id_artist = Input::get('id_artist');
         $track_name = Input::get('name');
-        
-        $track->name = $track_name;             
-        
+
+        $track->id_artist = $id_artist;    
+        $track->name = $track_name;
 
         $archivo = array('file' => Input::file('file'));
         $extension = Input::file('file')->getClientOriginalExtension(); 
@@ -65,8 +68,7 @@ class TracksController extends Controller
         Input::file('file')->move($dir_file, $new_name);
 
         $track->dir_track = $dir_file . $new_name;
-        $track->save();
-        
+        $track->save();        
 
         return redirect('tracks');
     }
@@ -82,6 +84,7 @@ class TracksController extends Controller
 
         $this->validate($request,$rules);
         Track::create($request->all());
+        
         return redirect('tracks');
     }
 
@@ -106,7 +109,9 @@ class TracksController extends Controller
     public function edit($id)
     {
         $track = Track::find($id);
-        return view('tracks.edit',compact('track'));
+        $artists = Artist::all();
+
+        return view('tracks.edit', compact('track','artists'));
     }
 
     /**
@@ -117,10 +122,14 @@ class TracksController extends Controller
      */
     public function update($id)
     {
-           $track_name = Input::get('name');
+           $name = Input::get('name');
+           $id_artist = Input::get('id_artist');
+
            $track=Track::find($id);
-           $track->name = $track_name;
+           $track->id_artist = $id_artist;
+           $track->name = $name;
            $track->save();
+
            return redirect('tracks');
     }
 
@@ -138,12 +147,20 @@ class TracksController extends Controller
 
     public function replace_white_spaces($file){
         
-        $file = strtolower($file);//Convierte el nombre del archivo a minuscula
-        $file = preg_replace("/[^.a-z0-9_\s-]/", "", $file);//Indica los caracteres posiblesque mantiene el nombre
-        $file = preg_replace("/[\s-]+/", " ", $file);//Elimina espacios en blanco multiples y barras inclinadas
-        $file = preg_replace("/[\s_]/", "_", $file);//Combierte los espacios en blanco en guiones
+        $file = strtolower($file);
+        $file = preg_replace("/[^.a-z0-9_\s-]/", "", $file);
+        $file = preg_replace("/[\s-]+/", " ", $file);
+        $file = preg_replace("/[\s_]/", "_", $file);
         return $file;
     }   
+
+    public function add_queue($id)
+    {
+        $track = Track::find($id);
+        $dir_track=$track->dir_track;
+        $this->queue($dir_track);
+        return Redirect::to('tracks');                   
+    }
 
     public function queue($queue){
         

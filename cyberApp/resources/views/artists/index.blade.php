@@ -1,5 +1,3 @@
-
-
 @extends('app')
 
 @section('content')
@@ -10,7 +8,7 @@
        role="button">Create Artist</a>
 @endif
 
-    <table class="ui celled table" id="tableIndex">
+    <table class="table table-hover" id="tableIndex">
     <thead>
         <tr>            
             <th>Artists</th>

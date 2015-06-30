@@ -5,10 +5,10 @@
 
 @if (Auth::user()->is_admin == '1')
     <a class="btn btn-primary btn-lg" href="{{ url('tracks/create') }}"
-       role="button">Crear cancion</a>
+       role="button">Add New Track</a>
 @endif
 
-    <table class="ui celled table" id="tableIndex">
+    <table class="table table-hover" id="tableIndex">
     <thead>
         <tr>
             <th>Track Name</th>
@@ -24,16 +24,20 @@
         <td>{!! $track->name !!}</td>       
         
         <td>
+
             @foreach($artists as $artist)
                 <?php  
-                    if($track->id == $artist->id_)
+                    if($artist->id == $track->id_artist)
                     {
                 ?>
-                {!! $artist->name !!}
+
+                    {!! $artist->name !!}
+                    
                 <?php 
                     }
                 ?>
             @endforeach
+
         </td>        
         
         <td>
@@ -44,11 +48,13 @@
                 {!!Form::open(array('url' => "/tracks/$track->id", 'method' => 'DELETE'))!!}                
                        <button class="btn btn-danger form-control" role="button">Delete</button>
                 {!!Form::close()!!} 
-            </div>    
+            </div>  
+            <div class="col-xs-2" >
+                <a href="/tracks/{{{$track->id}}}/add_queue" class="btn btn-success" role="button">Add Queue</a>
+            </div>  
         </td>
     </tr>
     @endforeach
-
 
         </tbody>
 
