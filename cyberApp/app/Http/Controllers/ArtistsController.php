@@ -17,8 +17,9 @@ class ArtistsController extends Controller
      */
     public function index()
     {
-        $artist = Artist::get()->all();
-        return view('artists.index',compact('artist')); //compact hace un arreglo
+        $artists = Artist::get()->all();        
+        $artists = Artist::paginate(15);
+        return view('artists.index',compact('artists')); //compact hace un arreglo
     }
 
     /**
@@ -38,9 +39,11 @@ class ArtistsController extends Controller
      */
     public function store()
     {
-        /*$artist = Request::all();
-        Artist::create($artist);
-        return redirect('artists.index');*/
+        $artist = new Artist();
+        $artist_name = Input::get('artist');  
+        $artist->name = $artist_name;                      
+        $artist->save();
+        return redirect('artists');
     }
 
     /**
@@ -75,9 +78,10 @@ class ArtistsController extends Controller
      */
     public function update($id)
     {
-           $artistUpdate=Request::all();
-           $artist=Book::find($id);
-           $artist->update($artistUpdate);
+           $artist_name = Input::get('name');
+           $artist=Artist::find($id);
+           $artist->name = $artist_name;
+           $artist->save();
            return redirect('artists');
     }
 

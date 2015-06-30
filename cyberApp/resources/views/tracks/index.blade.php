@@ -11,14 +11,12 @@
     <table class="ui celled table" id="tableIndex">
     <thead>
         <tr>
-            <th>Cancion</th>
-            <th>Artista</th>
+            <th>Track Name</th>
+            <th>Artists Name</th>
             <th>Options</th>
         </tr>
     </thead>
     <tbody>
-
-    
 
     @foreach($tracks as $track)
     
@@ -40,11 +38,11 @@
         
         <td>
             <div class="col-xs-2" >
-                <a href="/tracks/{{{$track->id}}}/edit" class="btn btn-warning form-control" role="button">Editar</a>
+                <a href="/tracks/{{{$track->id}}}/edit" class="btn btn-warning form-control" role="button">Edit</a>
             </div>
-            <div class="col-xs-3" >
+            <div class="col-xs-2" >
                 {!!Form::open(array('url' => "/tracks/$track->id", 'method' => 'DELETE'))!!}                
-                       <button class="btn btn-danger form-control" role="button">Eliminar</button>
+                       <button class="btn btn-danger form-control" role="button">Delete</button>
                 {!!Form::close()!!} 
             </div>    
         </td>

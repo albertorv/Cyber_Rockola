@@ -49,13 +49,12 @@ class TracksController extends Controller
 
         $track = Track::all();
         $track = new Track();
-        $artist = new Artist();
+        
 
         $track_name = Input::get('name');
-        $artist_name = Input::get('artist');                        
         
         $track->name = $track_name;             
-        $artist->name = $artist_name;
+        
 
         $archivo = array('file' => Input::file('file'));
         $extension = Input::file('file')->getClientOriginalExtension(); 
@@ -67,7 +66,7 @@ class TracksController extends Controller
 
         $track->dir_track = $dir_file . $new_name;
         $track->save();
-        $artist->save();
+        
 
         return redirect('tracks');
     }
