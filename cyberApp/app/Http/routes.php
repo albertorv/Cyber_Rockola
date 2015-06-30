@@ -24,6 +24,7 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
+/*
 Route::get('artists','ArtistsController@index');
 
 Route::get('artists/create','ArtistsController@create');
@@ -32,8 +33,11 @@ Route::post('artists','ArtistsController@store');
 
 Route::get('artists/{id}','ArtistsController@show');
 
-///
+*/
+Route::resource('artists', 'ArtistsController');
 Route::resource('tracks', 'TracksController');
+
+Route::post('apply/upload', 'TracksController@store');
 
 /*
 Route::get('tracks','TracksController@index');

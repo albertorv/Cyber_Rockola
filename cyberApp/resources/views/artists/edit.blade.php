@@ -1,17 +1,20 @@
-@extends('layout.template')
+@extends('app')
+
 @section('content')
-    <h1>Editar Artista</h1>
-    {!! Form::model($artist,['method' => 'PATCH','route'=>['artists.edit',$artist->id]]) !!}
-    <div class="form-group">
-        {!! Form::label('Nombre', 'Nombre:') !!}
-        {!! Form::text('name',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Canción', 'Canción:') !!}
-        {!! Form::text('name',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::submit('Editar', ['class' => 'btn btn-primary']) !!}
-    </div>
+    <h1>Editando: {!! $artist->name  !!}</h1>
+    <hr>
+
+    {!! Form::model($artist, ['method'=>'PATCH', 'action' => ['ArtistsController@update', $artist->id]]) !!}
+        <input name="name" value="{{{$artist->name}}}" >
+        
+
+        <div class="form-group">
+            {!! Form::submit('Edit Artist', ['class'=>'btn btn-primary form-control'])  !!}
+        </div>
     {!! Form::close() !!}
+
+
+    @include('errors.list')
+
 @stop
+

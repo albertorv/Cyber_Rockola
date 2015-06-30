@@ -1,28 +1,27 @@
 @extends('app')
 
 @section('content')
-    <h1>Write a new cancion</h1>
+    <h1>Add New Song</h1>
     <hr>
 
-    {!! Form::open(['url' => 'tracks']) !!}
-        <!-- track Form Input -->
+    {!! Form::open(array('url'=>'apply/upload','method'=>'POST', 'files'=>true)) !!}
+
         <div class="form-group">
-            {!! Form::label('name','Cancion: ')  !!}
+            {!! Form::label('name','Song Name: ')  !!}
             {!! Form::text('name', null , ['class'=>'form-control'])  !!}
         </div>
 
         <!-- dir_track Form Input -->
         <div class="form-group">
-            {!! Form::label('dir_track','directorio de cancion: ')  !!}
-            {!! Form::text('dir_track', null , ['class'=>'form-control'])  !!}
+            {!! Form::label('artist','Artist Name: ')  !!}
+            {!! Form::text('artist', null , ['class'=>'form-control'])  !!}
         </div>
-
     
-        <!-- Submit -->
-        <div class="form-group">
-            {!! Form::submit('Agregar Cancion', ['class'=>'btn btn-primary form-control'])  !!}
-        </div>
-    {!! Form::close() !!}
+          {!! Form::file('file') !!}
+      <p class="errors">{!!$errors->first('file')!!}</p>
+        <div id="success"> </div>
+      {!! Form::submit('Submit', array('class'=>'send-btn')) !!}
+      {!! Form::close() !!}
 
     {{-- var_dump($errors->toArray()) --}}
     @if ($errors->any())

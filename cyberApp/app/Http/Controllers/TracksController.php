@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Track;
+use App\Artist;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTrackRequest;
@@ -21,9 +22,10 @@ class TracksController extends Controller
     {
         //Recuperar todos los articulos
         $tracks = Track::all();
+        $artists = Artist::all();
         $tracks = Track::paginate(15);
 
-        return view('tracks.index',compact('tracks')); //compact hace un arreglo
+        return view('tracks.index',compact('tracks','artists' )); //compact hace un arreglo
     }
 
     /**
@@ -33,7 +35,7 @@ class TracksController extends Controller
      */
     public function create()
     {
-        //
+        
         return view('tracks.create');
     }
 
@@ -42,10 +44,31 @@ class TracksController extends Controller
      *
      * @return Response
      */
-    public function store(CreateTrackRequest $request)
+    public function store()
     {
 
-        Track::create($request->all());
+        $track = Track::all();
+        $track = new Track();
+        $artist = new Artist();
+
+        $track_name = Input::get('name');
+        $artist_name = Input::get('artist');                        
+        
+        $track->name = $track_name;             
+        $artist->name = $artist_name;
+
+        $archivo = array('file' => Input::file('file'));
+        $extension = Input::file('file')->getClientOriginalExtension(); 
+        $file_name =  Input::file('file')->getClientOriginalName();
+
+        $new_name = $this->replace_white_spaces($file_name);
+        $dir_file="uploads/rockola_music/";
+        Input::file('file')->move($dir_file, $new_name);
+
+        $track->dir_track = $dir_file . $new_name;
+        $track->save();
+        $artist->save();
+
         return redirect('tracks');
     }
 
@@ -112,5 +135,26 @@ class TracksController extends Controller
     {
         Track::find($id)->delete();
         return redirect('tracks');
+    }
+
+    public function replace_white_spaces($file){
+        
+        $file = strtolower($file);//Convierte el nombre del archivo a minuscula
+        $file = preg_replace("/[^.a-z0-9_\s-]/", "", $file);//Indica los caracteres posiblesque mantiene el nombre
+        $file = preg_replace("/[\s-]+/", " ", $file);//Elimina espacios en blanco multiples y barras inclinadas
+        $file = preg_replace("/[\s_]/", "_", $file);//Combierte los espacios en blanco en guiones
+        return $file;
+    }   
+
+    public function queue($queue){
+        
+        $connection = new AMQPConnection('localhost', 5672, 'guest', 'guest');
+        $channel = $connection->channel();
+        $channel->queue_declare('rockola', false, false, false, false);
+        
+        $msg = new AMQPMessage($queue);
+        $channel->basic_publish($msg, '', 'rockola');
+        $channel->close();
+        $connection->close();
     }
 }

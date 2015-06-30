@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Artist extends Model
 {
     protected $table = 'artist';
-
-    protected $fillable=[
-        'name'
-    ];
+    protected $fillable = array('name');
+    protected $guarded  = array('id');
+    public    $timestamps = false;
 }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Artist;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
 
 class ArtistsController extends Controller
 {
@@ -17,9 +18,7 @@ class ArtistsController extends Controller
     public function index()
     {
         $artist = Artist::get()->all();
-        
-
-        return view('artists.index',compact('artists')); //compact hace un arreglo
+        return view('artists.index',compact('artist')); //compact hace un arreglo
     }
 
     /**
@@ -39,9 +38,9 @@ class ArtistsController extends Controller
      */
     public function store()
     {
-        $artist = Request::all();
+        /*$artist = Request::all();
         Artist::create($artist);
-        return redirect('artists.index');
+        return redirect('artists.index');*/
     }
 
     /**

@@ -15,6 +15,7 @@
                 <li><a href="{{ url('/') }}">Home</a></li>
                 @if (!Auth::guest())
                     <li><a href="{{ url('/tracks') }}">Tracks</a></li>
+                    <li><a href="{{ url('/artists') }}">Artists</a></li>
                 @endif
             </ul>
 
